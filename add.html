@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+    <div ng-app="myApp" ng-controller="formCtrl">
+        <form novalidate>
+            First Number:<br>
+            <input type="text" ng-model="first"><br>
+            Second Number:<br>
+            <input type="text" ng-model="second">
+            <br><br>
+            <button ng-click="send()">Send</button>
+        </form>
+
+
+       <p> {{result}}</p>
+
+    </div>
+
+    <script>
+var app = angular.module('myApp', []);
+        app.controller('formCtrl', function ($scope, $http) {
+
+           
+
+            $scope.first= 1
+            $scope.second = 2
+            $scope.result="yet to be done"
+
+
+            $scope.send = () => {
+
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:49821/api/values',
+                    params: { first: $scope.first, second: $scope.second }
+                }).then(res => {
+                    $scope.result=res.data
+                    }).catch(err => {
+                        console.log(err);
+                        alert(err)
+                        alert(JSON.stringify(err))
+                        $scope.result="backend is not working"
+                    })
+
+
+            }
+
+
+        })
+               
+         
+
+
+
+
+    </script>
+
+</body>
+</html>
